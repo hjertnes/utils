@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	uuid "github.com/satori/go.uuid"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"strings"
@@ -50,4 +51,18 @@ func NilStringPointer() *string{
 
 func StringPointer(input string) *string{
 	return &input
+}
+
+func Copy(from, to string) error{
+	bytesRead, err := ioutil.ReadFile(from)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(to, bytesRead, 0600)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
